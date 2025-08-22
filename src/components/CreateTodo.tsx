@@ -10,7 +10,7 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim() === "") return;
+    
 
     const newTodo: Todo = {
       id: crypto.randomUUID(),
