@@ -21,6 +21,7 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
 
     onCreate(newTodo);
     setTitle("");
+
   };
 
   return (

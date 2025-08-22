@@ -7,7 +7,10 @@ export default function TodoList({
 }: {
   todos: Todo[];
   onDelete: (id: string) => void;
-}) {
+}) 
+
+
+{
   return (
     <div>
       <h2>Todo List</h2>
