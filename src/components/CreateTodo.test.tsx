@@ -45,6 +45,18 @@ describe("CreateTodo", () => {
         id: expect.any(String),
       })
     );
-    
+  });
+
+  it("should not create a todo with empty title", () => {
+    const mockOnCreate = vi.fn();
+    const { getByRole } = render(<CreateTodo onCreate={mockOnCreate} />);
+
+    const input = getByRole("textbox");
+    const button = getByRole("button");
+
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.click(button);
+
+    expect(mockOnCreate).not.toHaveBeenCalled();
   });
 });
