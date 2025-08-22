@@ -12,6 +12,7 @@ export default defineConfig({
       provider: "istanbul",
       exclude: [
         "src/main.tsx", 
+        ".eslintrc.cjs",
       ],
     },
     

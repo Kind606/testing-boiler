@@ -17,6 +17,9 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
       title,
     };
 
+    if (!title.trim()) {
+      return; 
+    }
     onCreate(newTodo);
     setTitle("");
   };
