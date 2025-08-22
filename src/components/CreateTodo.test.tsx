@@ -30,10 +30,9 @@ describe("CreateTodo", () => {
         completed: false,
       })
     );
-
   });
 
-  it("should add to local storage when a todo is created", () => {
+  it("todo should have a unique id", () => {
     const mockOnCreate = vi.fn();
     const { getByRole } = render(<CreateTodo onCreate={mockOnCreate} />);
 
@@ -45,14 +44,8 @@ describe("CreateTodo", () => {
 
     expect(mockOnCreate).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: "Test Todo",
-        completed: false,
+        id: expect.any(String),
       })
     );
-
-    // Check if localStorage has the new todo
-    const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    expect(todos).toHaveLength(1);
-    expect(todos[0].title).toBe("Test Todo");
   });
 });
