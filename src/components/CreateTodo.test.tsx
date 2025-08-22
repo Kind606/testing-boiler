@@ -14,7 +14,7 @@ describe("CreateTodo", () => {
     expect(getByRole("button")).toBeInTheDocument();
   });
 
-  it("should call onCreate with a new todo when form is submitted", () => {
+  it("should create a todo", () => {
     const mockOnCreate = vi.fn();
     const { getByRole } = render(<CreateTodo onCreate={mockOnCreate} />);
 
@@ -24,12 +24,10 @@ describe("CreateTodo", () => {
     fireEvent.change(input, { target: { value: "Test Todo" } });
     fireEvent.click(button);
 
-    expect(mockOnCreate).toHaveBeenCalledWith(
-      expect.objectContaining({
-        title: "Test Todo",
-        completed: false,
-      })
-    );
+    expect(mockOnCreate).toHaveBeenCalledWith({
+      id: expect.any(String),
+      title: "Test Todo",
+    });
   });
 
   it("todo should have a unique id", () => {
@@ -47,5 +45,6 @@ describe("CreateTodo", () => {
         id: expect.any(String),
       })
     );
+    
   });
 });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CounterButton from "./components/CounterButton";
+
 import CreateTodo, { Todo } from "./components/CreateTodo";
 import TodoList from "./components/TodoList";
 
@@ -27,8 +27,6 @@ function App() {
       <CreateTodo onCreate={handleCreate} />
 
       <TodoList todos={todos} onDelete={handleDelete} />
-
-      <CounterButton />
     </div>
   );
 }

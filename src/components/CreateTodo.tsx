@@ -1,7 +1,6 @@
 export interface Todo {
   id: string;
   title: string;
-  completed: boolean;
 }
 
 import { useState } from "react";
@@ -16,12 +15,10 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       title,
-      completed: false,
     };
 
     onCreate(newTodo);
     setTitle("");
-
   };
 
   return (
