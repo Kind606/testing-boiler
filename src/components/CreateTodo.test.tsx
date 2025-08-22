@@ -1,4 +1,5 @@
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import CreateTodo from "./CreateTodo";
 
@@ -58,5 +59,18 @@ describe("CreateTodo", () => {
     fireEvent.click(button);
 
     expect(mockOnCreate).not.toHaveBeenCalled();
+  });
+
+  it("does not allow more than 20 characters in todo input", async () => {
+    const onCreate = vi.fn();
+    render(<CreateTodo onCreate={onCreate} />);
+    const input = screen.getByPlaceholderText("Add a new todo");
+
+    // Try to type more than 20 characters
+    const longText = "abcdefghijklmnopqrstuvwxyz";
+    await userEvent.type(input, longText);
+
+    // Assert that only 20 characters are present in the input
+    expect(input).toHaveValue(longText.slice(0, 20));
   });
 });
