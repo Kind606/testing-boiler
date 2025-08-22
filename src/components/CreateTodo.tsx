@@ -10,7 +10,6 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
 
     const newTodo: Todo = {
       id: crypto.randomUUID(),
@@ -18,7 +17,7 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
     };
 
     if (!title.trim()) {
-      return; 
+      return;
     }
     onCreate(newTodo);
     setTitle("");
@@ -30,6 +29,7 @@ function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        maxLength={20}
         placeholder="Add a new todo"
       />
       <button className="AddButton" type="submit">
