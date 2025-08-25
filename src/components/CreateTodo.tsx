@@ -1,42 +1,47 @@
-export interface Todo {
-  id: string;
-  title: string;
-}
-
+import { Box, Button, Paper, TextField } from "@mui/material";
 import { useState } from "react";
 
-function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
+export type Todo = {
+  id: string;
+  title: string;
+};
+
+export default function CreateTodo({
+  onCreate,
+}: {
+  onCreate: (todo: Todo) => void;
+}) {
   const [title, setTitle] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const newTodo: Todo = {
-      id: crypto.randomUUID(),
-      title,
-    };
-
-    if (!title.trim()) {
-      return;
-    }
-    onCreate(newTodo);
+    if (!title.trim()) return;
+    onCreate({ id: crypto.randomUUID(), title: title.trim() });
     setTitle("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        maxLength={20}
-        placeholder="Add a new todo"
-      />
-      <button className="AddButton" type="submit">
-        Add Todo
-      </button>
-    </form>
+    <Paper elevation={2} sx={{ p: 3, mb: 3, maxWidth: 450, mx: "auto" }}>
+      <Box component="form" onSubmit={handleSubmit} display="flex" gap={2} sx={{ flexDirection: 'column' }}>
+        <TextField
+          label="Add a new todo"
+          value={title}
+          onChange={handleChange}
+          size="small"
+          fullWidth
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Add Todo
+        </Button>
+      </Box>
+    </Paper>
   );
 }
-
-export default CreateTodo;

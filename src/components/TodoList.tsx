@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Todo } from "./CreateTodo";
 import DeleteButton from "./DeleteButton";
+import { Button, Typography, Paper, List, ListItem, Box } from "@mui/material";
 
 export default function TodoList({
   todos,
@@ -21,22 +22,49 @@ export default function TodoList({
   };
 
   return (
-    <div>
-      <h2>Todo List</h2>
-      <button onClick={handleHighlightRandom}>Highlight Random Todo</button>
-      <p>
+    <Paper elevation={3} sx={{ p: 3, maxWidth: 450, margin: "auto", mt: 4 }}>
+      <Typography variant="h5" gutterBottom>
+        Todo List
+      </Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleHighlightRandom}
+        sx={{ mb: 2 }}
+      >
+        Highlight Random Todo
+      </Button>
+      <Typography
+        variant="subtitle1"
+        color={highlighted ? "secondary" : "text.secondary"}
+        sx={{ mb: 2 }}
+      >
         {highlighted
           ? `Highlighted: ${highlighted.title}`
           : "No todo highlighted"}
-      </p>
-      {todos.length === 0 && <p>No todos yet!</p>}
-      <ul>
+      </Typography>
+      {todos.length === 0 && (
+        <Typography color="text.secondary">No todos yet!</Typography>
+      )}
+      <List
+        sx={{ maxHeight: 150, overflowY: "auto", bgcolor: "background.paper" }}>
         {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.title} <DeleteButton onClick={() => onDelete(todo.id)} />
-          </li>
+          <ListItem
+            key={todo.id}
+            sx={{
+              bgcolor:
+                highlighted && highlighted.id === todo.id
+                  ? "secondary.light"
+                  : "background.paper",
+              borderRadius: 1,
+              mb: 1,
+            }}
+            secondaryAction={<DeleteButton onClick={() => onDelete(todo.id)} />}
+          >
+            <Box>{todo.title}</Box>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Paper>
   );
 }

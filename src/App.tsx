@@ -1,3 +1,4 @@
+import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import CreateTodo, { Todo } from "./components/CreateTodo";
@@ -22,12 +23,16 @@ function App() {
   }, [todos]);
 
   return (
-    <div>
-      <h1>Vite + React</h1>
+    <Container maxWidth="sm" sx={{ mt: 4 , boxShadow: 3, p: 4, borderRadius: 2, bgcolor: 'background.paper'}}>
+      <Box textAlign="center" mb={4}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          Vite + React Todo
+        </Typography>
+      </Box>
       <CreateTodo onCreate={handleCreate} />
 
       <TodoList todos={todos} onDelete={handleDelete} />
-    </div>
+    </Container>
   );
 }
 
