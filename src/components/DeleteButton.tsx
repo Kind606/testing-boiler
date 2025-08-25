@@ -1,20 +1,17 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
-
 interface Props {
   onClick: () => void;
 }
 
-export default function DeleteButton({ onClick }: Props) {
+
+function DeleteButton(props: Props) {
   return (
-    <IconButton
-      aria-label="delete"
-      color="error"
-      size="small"
-      onClick={onClick}
-      sx={{ ml: 1 }}
-    >
-      <DeleteIcon fontSize="small" />
-    </IconButton>
+    <button onClick={props.onClick} style={{ background: "red" }}>
+      Delete
+    </button>
   );
 }
+
+
+export default DeleteButton;
+
+

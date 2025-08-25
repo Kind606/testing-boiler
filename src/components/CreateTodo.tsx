@@ -1,21 +1,12 @@
 import { Box, Button, Paper, TextField } from "@mui/material";
 import { useState } from "react";
 
-export type Todo = {
-import { Box, Button, Paper, TextField } from "@mui/material";
-import { useState } from "react";
 
 export type Todo = {
   id: string;
   title: string;
 };
 
-export default function CreateTodo({
-  onCreate,
-}: {
-  onCreate: (todo: Todo) => void;
-}) {
-};
 
 export default function CreateTodo({
   onCreate,
@@ -24,22 +15,19 @@ export default function CreateTodo({
 }) {
   const [title, setTitle] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
     onCreate({ id: crypto.randomUUID(), title: title.trim() });
-    if (!title.trim()) return;
-    onCreate({ id: crypto.randomUUID(), title: title.trim() });
     setTitle("");
   };
+
 
   return (
     <Paper
@@ -87,3 +75,5 @@ export default function CreateTodo({
     </Paper>
   );
 }
+
+

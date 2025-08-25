@@ -2,7 +2,7 @@ import { Box, Button, List, ListItem, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { Todo } from "./CreateTodo";
 import DeleteButton from "./DeleteButton";
-import { Button, Typography, Paper, List, ListItem, Box } from "@mui/material";
+
 
 export default function TodoList({
   todos,
@@ -13,6 +13,7 @@ export default function TodoList({
 }) {
   const [highlighted, setHighlighted] = useState<Todo | null>(null);
 
+
   const handleHighlightRandom = () => {
     if (todos.length === 0) {
       setHighlighted(null);
@@ -21,6 +22,7 @@ export default function TodoList({
     const index = Math.floor(Math.random() * todos.length);
     setHighlighted(todos[index]);
   };
+
 
   return (
     <Paper
@@ -93,3 +95,5 @@ export default function TodoList({
     </Paper>
   );
 }
+
+
