@@ -84,4 +84,16 @@ describe("todo list", () => {
     // Restore Math.random after the test
     vi.spyOn(Math, "random").mockRestore();
   });
+
+  it("does not highlight any todo when the list is empty", () => {
+    const { getByText, getByRole } = render(
+      <TodoList todos={[]} onDelete={() => {}} />
+    );
+
+    const button = getByRole("button", { name: /Highlight Random Todo/i });
+    fireEvent.click(button);
+
+    // Check if the message indicates no todo is highlighted
+    expect(getByText("No todo highlighted")).toBeInTheDocument();
+  });
 });

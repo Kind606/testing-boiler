@@ -1,42 +1,72 @@
-export interface Todo {
-  id: string;
-  title: string;
-}
-
+import { Box, Button, Paper, TextField } from "@mui/material";
 import { useState } from "react";
 
-function CreateTodo({ onCreate }: { onCreate: (todo: Todo) => void }) {
+export type Todo = {
+  id: string;
+  title: string;
+};
+
+export default function CreateTodo({
+  onCreate,
+}: {
+  onCreate: (todo: Todo) => void;
+}) {
   const [title, setTitle] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const newTodo: Todo = {
-      id: crypto.randomUUID(),
-      title,
-    };
-
-    if (!title.trim()) {
-      return;
-    }
-    onCreate(newTodo);
+    if (!title.trim()) return;
+    onCreate({ id: crypto.randomUUID(), title: title.trim() });
     setTitle("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        maxLength={20}
-        placeholder="Add a new todo"
-      />
-      <button className="AddButton" type="submit">
-        Add Todo
-      </button>
-    </form>
+    <Paper
+      elevation={2}
+      sx={{
+        p: 3,
+        mb: 3,
+        maxWidth: 400,
+        mx: "auto",
+        backgroundColor: "#f8fafc",
+        borderRadius: 2,
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        display="flex"
+        gap={2}
+        sx={{ flexDirection: "column" }}
+      >
+        <TextField
+          value={title}
+          onChange={handleChange}
+          size="small"
+          fullWidth
+          inputProps={{ maxLength: 20 }}
+          placeholder="Add a new todo"
+          sx={{
+            bgcolor: "#fff",
+            borderRadius: 1,
+          }}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{
+            borderRadius: 2,
+            boxShadow: 1,
+          }}
+        >
+          Add Todo
+        </Button>
+      </Box>
+    </Paper>
   );
 }
-
-export default CreateTodo;
